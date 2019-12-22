@@ -53,7 +53,7 @@ class Game extends React.Component {
         }
       ],
       stepNumber: 0,
-      oIsNext: true
+      xIsNext: false
     };
   }
 
@@ -64,7 +64,7 @@ class Game extends React.Component {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.oIsNext ? "O" : "X";
+    squares[i] = this.state.xIsNext ? "X" : "O";
     this.setState({
       history: history.concat([
         {
@@ -72,14 +72,14 @@ class Game extends React.Component {
         }
       ]),
       stepNumber: history.length,
-      oIsNext: !this.state.oIsNext
+      xIsNext: !this.state.xIsNext
     });
   }
 
   jumpTo(step) {
     this.setState({
       stepNumber: step,
-      oIsNext: (step % 2) === 0
+      xIsNext: (step % 2) === 1
     });
   }
 
@@ -103,7 +103,7 @@ class Game extends React.Component {
     if (winner) {
       status = "Champion: " + winner;
     } else {
-      status = "Next player: " + (this.state.oIsNext ? "Johnny" : "Bob");
+      status = "Next player: " + (this.state.xIsNext ? "Johnny" : "Bob");
     }
 
     return (
